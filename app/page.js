@@ -1,0 +1,389 @@
+"use client";
+
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { serviceItems } from "./services/data";
+import {
+  BookOpen,
+  Calendar,
+  Camera,
+  Car,
+  CarFront,
+  ChevronDown,
+  Cpu,
+  Facebook,
+  GraduationCap,
+  Instagram,
+  Linkedin,
+  Mail,
+  MapPin,
+  Menu,
+  Navigation2,
+  Phone,
+  Send,
+  ShieldCheck,
+  Star,
+  Truck,
+  Twitter,
+  Users,
+  X
+} from "lucide-react";
+
+const navGroups = [
+  {
+    label: "About us",
+    items: [
+      {
+        label: "Company Overview",
+        href: "/about-us"
+      }
+    ]
+  },
+  {
+    label: "Our services",
+    items: serviceItems.map((service) => ({
+      label: service.title,
+      href: service.href
+    }))
+  }
+];
+
+const services = serviceItems.map((item) => {
+  let Icon = Users;
+
+  if (item.slug === "physical-security") Icon = ShieldCheck;
+  if (item.slug === "secured-mobility") Icon = Truck;
+  if (item.slug === "mobile-car-rental") Icon = Car;
+  if (item.slug === "professional-drone-operative-service") Icon = Camera;
+  if (item.slug === "security-trainings") Icon = BookOpen;
+  if (item.slug === "suv-car-rental") Icon = CarFront;
+  if (item.slug === "secure-mobility-event-services") Icon = Navigation2;
+  if (item.slug === "luxury-car-rental") Icon = Star;
+
+  return { ...item, Icon };
+});
+
+const sliderImages = [
+  "/images/Men on suit 1.jpg",
+  "/images/Men on suit 5.jpg",
+  "/images/Men on suit 7.jpg",
+  "/images/Men on suit 11.jpg"
+];
+
+const testimonials = [
+  {
+    quote:
+      "Their consistency continues to impress me. Every engagement reflects professionalism, expertise, and genuine commitment to service.",
+    name: "Wilson Thai",
+    location: "Ontario, Canada",
+    image: "/images/PHOTO-2026-06-16-13-12-36 2.jpg"
+  },
+  {
+    quote:
+      "The customer service is exceptional; proactive, responsive, and personal. Their solutions have streamlined our operations.",
+    name: "Chukwu Emeka",
+    location: "Abuja, FCT",
+    image: "/images/PHOTO-2026-06-16-13-12-36 3.jpg"
+  },
+  {
+    quote:
+      "They handled every aspect of our engagement with precision and warmth. I have confidence knowing the team is always reachable.",
+    name: "Jide Adams",
+    location: "Lagos, Nigeria",
+    image: "/images/PHOTO-2026-06-16-13-12-36 4.jpg"
+  }
+];
+
+function slugify(value) {
+  return value
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
+export default function Home() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const [slideIndex, setSlideIndex] = useState(0);
+
+  // Form handling local states
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    service: "",
+    message: ""
+  });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSlideIndex((index) => (index + 1) % sliderImages.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    // 300 Spartans Active WhatsApp Business Phone Number
+    const whatsappNumber = "2347081352918"; 
+
+    // Formatting the context data neatly for the chat window
+    const messageText = `Hello 300 Spartans, I would like to request a service.%0A%0A` +
+      `*Name:* ${encodeURIComponent(formData.name)}%0A` +
+      `*Email:* ${encodeURIComponent(formData.email)}%0A` +
+      `*Service Required:* ${encodeURIComponent(formData.service)}%0A` +
+      `*Message Details:* ${encodeURIComponent(formData.message)}`;
+
+    // Opens secure link into the messaging dashboard directly
+    window.open(`https://wa.me/${whatsappNumber}?text=${messageText}`, "_blank");
+  };
+
+  return (
+    <>
+      <header className="site-header">
+        <a href="#home" className="brand" aria-label="300 Spartans home">
+          <Image src="/images/logo.jpg" alt="300 Spartans" width={82} height={82} priority />
+        </a>
+        <button className="mobile-menu" onClick={() => setMenuOpen(!menuOpen)} aria-label="Open menu">
+          <Menu size={24} />
+        </button>
+        <nav className={`main-nav ${menuOpen ? "is-open" : ""}`}>
+          <button className="close-menu" onClick={() => setMenuOpen(false)} aria-label="Close menu">
+            <X size={22} />
+          </button>
+          {navGroups.map((group) => (
+            <div className="nav-item" key={group.label}>
+              <button onClick={() => setOpenDropdown(openDropdown === group.label ? null : group.label)}>
+                {group.label} <ChevronDown size={16} />
+              </button>
+              <div className={`dropdown ${openDropdown === group.label ? "is-open" : ""}`}>
+                {group.items.map((item) => {
+                  const label = typeof item === "string" ? item : item.label;
+                  const href = typeof item === "string" ? `#${slugify(item)}` : item.href;
+                  const description = typeof item === "object" ? item.description : null;
+
+                  return (
+                    <a href={href} key={label} onClick={() => setMenuOpen(false)} className={description ? "dropdown-service-item" : ""}>
+                      <span>{label}</span>
+                      {description ? <small>{description}</small> : null}
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+          <a href="/resources">Resources & Insights</a>
+          <a href="#contact">Contact Us</a>
+          <a href="#request" className="request-pill">
+            Request a service
+          </a>
+        </nav>
+      </header>
+<div style={{ width: '100%', maxWidth: '100vw', overflowX: 'hidden', position: 'relative' }}></div>
+      <main id="home">
+        <section className="hero">
+          <div className="hero-copy">
+            <h1>PROTECTION THAT'S ALWAYS A STEP AHEAD.</h1>
+            <p>
+              300 Spartans blends innovation with vigilance to protect your people, your property,
+              your peace of mind. Our advanced security intelligence empowers organizations,
+              governments, and individuals to thrive in an unpredictable world.
+            </p>
+            <a href="#services" className="primary-link">
+              Explore Our Solutions
+            </a>
+          </div>
+          
+          <div className="hero-media" aria-label="Security service imagery">
+            <img
+              src="/images/Men on suit 4.jpg"
+              alt="Security professionals"
+              className="hero-image"
+            />
+          </div>
+        </section>
+
+        <section className="intelligence-section">
+          <div className="intelligence-video">
+            <video autoPlay loop muted playsInline poster="/images/Men on suit 5.jpg">
+              <source src="/videos/VIDEO-2026-06-16-13-12-38.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div className="intelligence-copy">
+            <article>
+              <h2>Native Intelligence, Reimagined.</h2>
+              <p>
+                300 Spartans stands at the intersection of intuition and technology. We transform
+                local understanding into dependable protection. We monitor, adapt, and respond to
+                every threat that challenges safety and progress.
+              </p>
+            </article>
+            <article className="gold-card">
+              <h2>Protecting what matters, in every moment that matters.</h2>
+              <p>
+                We combine immediacy with intelligence, acting fast when it counts while designing
+                long-term strategies that strengthen safety, resilience, and well-being.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section className="suit-slider" aria-label="Security team photos">
+          <div className="slider-window">
+            {sliderImages.map((image, index) => (
+              <Image
+                key={image}
+                src={image}
+                alt="300 Spartans security team"
+                fill
+                sizes="(max-width: 768px) 100vw, 86vw"
+                className={index === slideIndex ? "is-active" : ""}
+              />
+            ))}
+          </div>
+          <div className="slider-dots" aria-hidden="true">
+            {sliderImages.map((image, index) => (
+              <span className={index === slideIndex ? "is-active" : ""} key={image} />
+            ))}
+          </div>
+        </section>
+
+        <section className="services-section" id="services">
+          <div className="section-heading">
+            <p>Our services</p>
+            <h2>
+              Every need is different. That's why our protection is personal.
+            </h2>
+          </div>
+          <div className="service-grid">
+            {services.map((service) => (
+              <article className="service-card" id={slugify(service.title)} key={service.title}>
+                <div className="service-card-icon">
+                  <service.Icon size={28} />
+                </div>
+                <div className="service-copy service-copy-card">
+                  <h3>{service.title}</h3>
+                  <p>{service.description}</p>
+                  <a href={service.href}>
+                    Read more
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="serve" id="serve">
+          <div className="section-heading">
+            <p>Who we serve</p>
+            <h2>Protection for individuals, enterprises, public institutions, and major operations.</h2>
+          </div>
+          <ul>
+            <li>Corporate offices and commercial facilities</li>
+            <li>High-value individuals and family estates</li>
+            <li>Government and public-sector environments</li>
+            <li>Events, transport routes, and active operations</li>
+          </ul>
+        </section>
+
+        <section className="testimonials" id="resources">
+          <div className="section-heading align-left">
+            <p>WHAT WE LOVE TO HEAR FROM OUR CLIENTS</p>
+            <h2>The best part of our work is hearing how we've made a difference.</h2>
+          </div>
+          <div className="testimonial-grid">
+            {testimonials.map((item) => (
+              <article className="testimonial-card" key={item.name}>
+                <p>"{item.quote}"</p>
+                <div>
+                  <Image src={item.image} alt={item.name} width={58} height={58} />
+                  <span>
+                    <strong>{item.name}</strong>
+                    {item.location}
+                  </span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* RESTRUCTURED FORM TO MATCH PREMIUM LAYOUT */}
+        <section className="request-section" id="request">
+          <h2>Request Service</h2>
+          <p>Get in touch with our team for enquiries or consultations.</p>
+          
+          <form onSubmit={handleFormSubmit} className="request-form">
+            <div className="form-group">
+              <label htmlFor="name">Your name <b>*</b></label>
+              <input 
+                type="text" 
+                id="name"
+                name="name"
+                placeholder="Enter name" 
+                required 
+                value={formData.name}
+                onChange={handleInputChange}
+              />
+            </div>
+            
+            <div className="form-group">
+              <label htmlFor="email">Email address <b>*</b></label>
+              <input 
+                type="email" 
+                id="email"
+                name="email"
+                placeholder="Enter Email" 
+                required 
+                value={formData.email}
+                onChange={handleInputChange}
+              />
+            </div>
+            
+            <div className="form-group full">
+              <label htmlFor="service">Select service(s) <b>*</b></label>
+              <select 
+                id="service"
+                name="service"
+                required 
+                value={formData.service}
+                onChange={handleInputChange}
+              >
+                <option value="" disabled>
+                  Choose service(s)
+                </option>
+                {services.map((service) => (
+                  <option key={service.title} value={service.title}>
+                    {service.title}
+                  </option>
+                ))}
+              </select>
+            </div>
+            
+            <div className="form-group full">
+              <label htmlFor="message">How can we help you? <b>*</b></label>
+              <textarea 
+                id="message"
+                name="message"
+                placeholder="Enter message" 
+                required 
+                value={formData.message}
+                onChange={handleInputChange}
+              />
+            </div>
+            
+            <button type="submit">
+              <Send size={17} /> Send request
+            </button>
+          </form>
+        </section>
+      </main>
+    </>
+  );
+}
