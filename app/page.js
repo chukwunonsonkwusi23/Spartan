@@ -106,6 +106,10 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [slideIndex, setSlideIndex] = useState(0);
+  const [formStatus, setFormStatus] = useState("");
+
+  const whatsappNumber = "2347081352918";
+  const phoneNumber = "+2348081602646";
 
   // Form handling local states
   const [formData, setFormData] = useState({
@@ -126,23 +130,20 @@ export default function Home() {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    if (formStatus) setFormStatus("");
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
-    // 300 Spartans Active WhatsApp Business Phone Number
-    const whatsappNumber = "2347081352918"; 
-
-    // Formatting the context data neatly for the chat window
     const messageText = `Hello 300 Spartans, I would like to request a service.%0A%0A` +
       `*Name:* ${encodeURIComponent(formData.name)}%0A` +
       `*Email:* ${encodeURIComponent(formData.email)}%0A` +
       `*Service Required:* ${encodeURIComponent(formData.service)}%0A` +
       `*Message Details:* ${encodeURIComponent(formData.message)}`;
 
-    // Opens secure link into the messaging dashboard directly
-    window.open(`https://wa.me/${whatsappNumber}?text=${messageText}`, "_blank");
+    setFormStatus("Your enquiry is being prepared in WhatsApp.");
+    window.open(`https://wa.me/${whatsappNumber}?text=${messageText}`, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -190,17 +191,36 @@ export default function Home() {
       <main id="home">
         <section className="hero">
           <div className="hero-copy">
-            <h1>PROTECTION THAT'S ALWAYS A STEP AHEAD.</h1>
+            <span className="hero-kicker">Security services in Lagos and across Nigeria</span>
+            <h1>SECURE PEOPLE. PROTECT ASSETS. MOVE WITH CONFIDENCE.</h1>
             <p>
-              300 Spartans blends innovation with vigilance to protect your people, your property,
-              your peace of mind. Our advanced security intelligence empowers organizations,
-              governments, and individuals to thrive in an unpredictable world.
+              300 Spartans delivers dependable protection, secure mobility, and discreet support for
+              businesses, families, and events that cannot afford risk. Our teams help you stay ahead
+              of threats while keeping operations smooth and professional.
             </p>
-            <a href="#services" className="primary-link">
-              Explore Our Solutions
-            </a>
+            <div className="hero-actions">
+              <a href="#request" className="primary-link">
+                Request a quote
+              </a>
+              <a href={`tel:${phoneNumber}`} className="secondary-link">
+                Call now
+              </a>
+              <a
+                href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Hello 300 Spartans, I would like to enquire about your security services.")}`}
+                target="_blank"
+                rel="noreferrer"
+                className="secondary-link whatsapp-link"
+              >
+                WhatsApp
+              </a>
+            </div>
+            <div className="hero-meta" aria-label="Trust indicators">
+              <span>Response-ready teams</span>
+              <span>Professional support</span>
+              <span>Trusted across Lagos</span>
+            </div>
           </div>
-          
+
           <div className="hero-media" aria-label="Security service imagery">
             <img
               src="/images/Men on suit 4.jpg"
@@ -208,6 +228,21 @@ export default function Home() {
               className="hero-image"
             />
           </div>
+        </section>
+
+        <section className="trust-strip" aria-label="Key trust points">
+          <article className="trust-item">
+            <strong>24/7</strong>
+            <span>Operational support</span>
+          </article>
+          <article className="trust-item">
+            <strong>Client-first</strong>
+            <span>Discreet, professional service</span>
+          </article>
+          <article className="trust-item">
+            <strong>Lagos-based</strong>
+            <span>Local knowledge and rapid response</span>
+          </article>
         </section>
 
         <section className="intelligence-section">
@@ -255,6 +290,30 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="value-section" aria-label="Why choose 300 Spartans">
+          <div className="section-heading">
+            <p>Why choose us</p>
+            <h2>Protection built around clarity, control, and reliable execution.</h2>
+          </div>
+          <div className="value-grid">
+            <article className="value-card">
+              <span>01</span>
+              <h3>Practical intelligence</h3>
+              <p>We assess risk in real-world conditions and build security plans that work in motion.</p>
+            </article>
+            <article className="value-card">
+              <span>02</span>
+              <h3>Professional presence</h3>
+              <p>Our teams are trained to be calm, visible, and effective in high-pressure situations.</p>
+            </article>
+            <article className="value-card">
+              <span>03</span>
+              <h3>Tailored coverage</h3>
+              <p>Every engagement is shaped around your property, people, schedule, and operational needs.</p>
+            </article>
+          </div>
+        </section>
+
         <section className="services-section" id="services">
           <div className="section-heading">
             <p>Our services</p>
@@ -271,8 +330,8 @@ export default function Home() {
                 <div className="service-copy service-copy-card">
                   <h3>{service.title}</h3>
                   <p>{service.description}</p>
-                  <a href={service.href}>
-                    Read more
+                  <a href={service.href} className="service-link-button">
+                    View service
                   </a>
                 </div>
               </article>
@@ -381,6 +440,11 @@ export default function Home() {
             <button type="submit">
               <Send size={17} /> Send request
             </button>
+            {formStatus ? (
+              <p className="form-status" role="status">
+                {formStatus}
+              </p>
+            ) : null}
           </form>
         </section>
       </main>

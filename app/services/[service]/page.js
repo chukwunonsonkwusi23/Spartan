@@ -39,9 +39,22 @@ export default function ServiceDetailPage({ params }) {
           <p>Service Overview</p>
           <h1>{service.title}</h1>
           <p>{service.summary}</p>
-          <a href="/#request" className="primary-link">
-            Request a service
-          </a>
+          <div className="hero-actions service-cta-actions">
+            <a href="/#request" className="primary-link">
+              Request a quote
+            </a>
+            <a href="tel:+2348081602646" className="secondary-link">
+              Call now
+            </a>
+            <a
+              href="https://wa.me/2347081352918?text=Hello%20300%20Spartans%2C%20I%20want%20to%20request%20a%20quote%20for%20this%20service."
+              target="_blank"
+              rel="noreferrer"
+              className="secondary-link whatsapp-link"
+            >
+              WhatsApp
+            </a>
+          </div>
         </div>
         <div className="service-hero-image">
           <Image

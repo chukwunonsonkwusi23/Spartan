@@ -18,6 +18,7 @@ export default function Footer() {
           <Link href="/about-us">About us</Link>
           <Link href="/about-us">Company Overview</Link>
           <Link href="/services">Our Services</Link>
+          <a href="tel:+2348081602646">Call +234-808-160-2646</a>
         </div>
 
         <div>
@@ -40,7 +41,7 @@ export default function Footer() {
             <a href="https://twitter.com/yourprofile" target="_blank" rel="noreferrer" aria-label="Twitter">
               <Twitter size={18} />
             </a>
-            <a href="https://wa.me/2347081352918" target="_blank" rel="noreferrer" aria-label="WhatsApp">
+            <a href="https://wa.me/2347081352918?text=Hello%20300%20Spartans%2C%20I%20would%20like%20to%20enquire%20about%20your%20services." target="_blank" rel="noreferrer" aria-label="WhatsApp">
               <MessageCircle size={18} />
             </a>
           </div>
