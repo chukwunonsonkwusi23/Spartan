@@ -5,7 +5,7 @@ import { FaTiktok } from "react-icons/fa6";
 
 export default function Footer() {
   return (
-    <footer className="site-footer">
+    <footer className="site-footer" id="contact">
       <div className="footer-main">
         <div>
           <Image src="/images/logo.jpg" alt="300 Spartans logo" width={72} height={72} />
