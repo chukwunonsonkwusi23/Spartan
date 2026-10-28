@@ -514,13 +514,46 @@ h1,
 }
 
 .hero-image {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
-  height: auto;
-  max-width: 520px;
-  max-height: 540px;
-  border-radius: 24px;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  border-radius: 0;
   object-fit: cover;
+  opacity: 0;
+  transform: scale(1.02);
+  transition: opacity 700ms ease, transform 700ms ease;
+}
+
+.hero-media > .hero-image {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.hero-slider {
+  width: 100%;
+  max-width: 520px;
+}
+
+.hero-slider-frame {
+  position: relative;
+  width: 100%;
+  height: clamp(320px, 42vw, 540px);
+  overflow: hidden;
+  border-radius: 24px;
+  background: #111827;
+}
+
+.hero-slider-frame .hero-image.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.hero-slider-dots {
+  margin-top: 8px;
 }
 
 /*
@@ -573,18 +606,69 @@ div.intelligence-video {
   flex: none !important;        /* Prevents it from automatically growing */
   width: 100% !important;
   max-width: 420px !important;  /* Locks maximum width tightly */
-  height: 380px !important;     /* Locks a clean, shorter height scale */
+  height: auto !important;
   position: relative !important;
-  border-radius: 24px !important;
-  overflow: hidden !important;
-  box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.06) !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+  box-shadow: none !important;
 }
 
-/* Force the raw video inside to scale smoothly into our smaller boundaries */
+.intelligence-media-stage {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #10131b;
+  box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.06);
+}
+
 .intelligence-video video {
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
+}
+
+.homepage-video-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  padding-top: 8px;
+}
+
+.homepage-video-pagination button,
+.slider-dots button {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.homepage-video-pagination span,
+.slider-dots button span {
+  display: block;
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: #c4c9d5;
+  transition: width 180ms ease, background 180ms ease;
+}
+
+.homepage-video-pagination button[aria-current="true"] span,
+.slider-dots button.is-active span {
+  width: 25px;
+  background: var(--navy);
+}
+
+.homepage-video-pagination button:focus-visible,
+.slider-dots button:focus-visible {
+  outline: 2px solid var(--navy);
+  outline-offset: -2px;
+  border-radius: 4px;
 }
 
 .intelligence-copy {
@@ -666,12 +750,6 @@ div.intelligence-video {
   height: 9px;
   border-radius: 50%;
   background: #cfd3df;
-}
-
-.slider-dots span.is-active {
-  width: 28px;
-  border-radius: 999px;
-  background: var(--navy);
 }
 
 .section-heading p,
@@ -1127,6 +1205,66 @@ div.intelligence-video {
   height: 100%;
   object-fit: cover;
   object-position: center;
+}
+
+.service-media-slider {
+  width: 100%;
+}
+
+.service-media-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 7;
+  background: #10131b;
+}
+
+.service-media-stage img,
+.service-media-stage video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.service-media-stage video {
+  display: block;
+}
+
+.service-media-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  padding: 6px 0;
+  background: #ffffff;
+}
+
+.service-media-pagination button {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.service-media-pagination span {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: #c4c9d5;
+  transition: width 180ms ease, background 180ms ease;
+}
+
+.service-media-pagination button[aria-current="true"] span {
+  width: 25px;
+  background: var(--navy);
+}
+
+.service-media-pagination button:focus-visible {
+  outline: 2px solid var(--navy);
+  outline-offset: -2px;
+  border-radius: 4px;
 }
 
 .resources-page {
@@ -2249,6 +2387,10 @@ div.intelligence-video {
     min-height: 360px;
   }
 
+  .intelligence-media-stage {
+    height: 360px;
+  }
+
   .intelligence-copy article {
     padding: 24px 22px;
   }
@@ -2331,6 +2473,10 @@ div.intelligence-video {
   .intelligence-video,
   .intelligence-video video {
     min-height: 310px;
+  }
+
+  .intelligence-media-stage {
+    height: 310px;
   }
 
   .slider-window {

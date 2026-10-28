@@ -1,6 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 import { getServiceBySlug } from "../data";
+import ServiceMediaSlider from "../../components/ServiceMediaSlider";
 
 export default function ServiceDetailPage({ params }) {
   const service = getServiceBySlug(params.service);
@@ -57,14 +58,18 @@ export default function ServiceDetailPage({ params }) {
           </div>
         </div>
         <div className="service-hero-image">
-          <Image
-            src={service.image}
-            alt={service.title}
-            width={720}
-            height={560}
-            className="service-hero-img"
-            priority
-          />
+          {service.video ? (
+            <ServiceMediaSlider image={service.image} video={service.video} title={service.title} />
+          ) : (
+            <Image
+              src={service.image}
+              alt={service.title}
+              width={720}
+              height={560}
+              className="service-hero-img"
+              priority
+            />
+          )}
         </div>
       </section>
 

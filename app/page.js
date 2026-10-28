@@ -67,30 +67,37 @@ const sliderImages = [
   "/images/Men on suit 1.jpg",
   "/images/Men on suit 5.jpg",
   "/images/Men on suit 7.jpg",
-  "/images/Men on suit 11.jpg"
+  "/images/Men on suit 11.jpg",
+  "/images/Men on suit 4.jpg",
+  "/images/SPARTANS SECURITY.jpeg"
+];
+
+const homepageVideos = [
+  "/videos/VIDEO-2026-06-16-13-12-38.mp4",
+  "/videos/Video Show.mp4"
 ];
 
 const testimonials = [
   {
     quote:
       "Their consistency continues to impress me. Every engagement reflects professionalism, expertise, and genuine commitment to service.",
-    name: "Wilson Thai",
-    location: "Ontario, Canada",
-    image: "/images/PHOTO-2026-06-16-13-12-36 2.jpg"
+    name: "Fahreed Abiola",
+    location: "Victoria Island, Lagos",
+    image: "/images/couple.jpg"
   },
   {
     quote:
       "The customer service is exceptional; proactive, responsive, and personal. Their solutions have streamlined our operations.",
-    name: "Chukwu Emeka",
+    name: "Sandra Okoye",
     location: "Abuja, FCT",
-    image: "/images/PHOTO-2026-06-16-13-12-36 3.jpg"
+    image: "/images/img.jpg"
   },
   {
     quote:
       "They handled every aspect of our engagement with precision and warmth. I have confidence knowing the team is always reachable.",
     name: "Jide Adams",
-    location: "Lagos, Nigeria",
-    image: "/images/PHOTO-2026-06-16-13-12-36 4.jpg"
+    location: "Ikoyi, Lagos",
+    image: "/images/family pic.jpg"
   }
 ];
 
@@ -106,10 +113,11 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [slideIndex, setSlideIndex] = useState(0);
+  const [videoSlideIndex, setVideoSlideIndex] = useState(0);
   const [formStatus, setFormStatus] = useState("");
 
-  const whatsappNumber = "2347081352918";
-  const phoneNumber = "+2348081602646";
+  const whatsappNumber = "2349064982248";
+  const phoneNumber = "+2349064982248";
 
   // Form handling local states
   const [formData, setFormData] = useState({
@@ -247,9 +255,32 @@ export default function Home() {
 
         <section className="intelligence-section">
           <div className="intelligence-video">
-            <video autoPlay loop muted playsInline poster="/images/Men on suit 5.jpg">
-              <source src="/videos/VIDEO-2026-06-16-13-12-38.mp4" type="video/mp4" />
-            </video>
+            <div className="intelligence-media-stage">
+              <video
+                key={homepageVideos[videoSlideIndex]}
+                autoPlay={videoSlideIndex === 0}
+                controls
+                loop
+                muted
+                playsInline
+                poster={videoSlideIndex === 0 ? "/images/Men on suit 5.jpg" : "/images/SPARTANS SECURITY.jpeg"}
+              >
+                <source src={homepageVideos[videoSlideIndex]} type="video/mp4" />
+              </video>
+            </div>
+            <div className="homepage-video-pagination" aria-label="Choose homepage video">
+              {homepageVideos.map((video, index) => (
+                <button
+                  type="button"
+                  key={video}
+                  aria-label={index === 0 ? "Show featured video" : "Show Video Show"}
+                  aria-current={index === videoSlideIndex}
+                  onClick={() => setVideoSlideIndex(index)}
+                >
+                  <span />
+                </button>
+              ))}
+            </div>
           </div>
           <div className="intelligence-copy">
             <article>
@@ -276,16 +307,31 @@ export default function Home() {
               <Image
                 key={image}
                 src={image}
-                alt="300 Spartans security team"
+                alt={
+                  image === "/images/SPARTANS SECURITY.jpeg"
+                    ? "Two 300 Spartans officers at a security post"
+                    : image === "/images/Men on suit 4.jpg"
+                      ? "Two 300 Spartans security officers at an event"
+                      : "300 Spartans security team"
+                }
                 fill
                 sizes="(max-width: 768px) 100vw, 86vw"
                 className={index === slideIndex ? "is-active" : ""}
               />
             ))}
           </div>
-          <div className="slider-dots" aria-hidden="true">
+          <div className="slider-dots" aria-label="Choose security team photo">
             {sliderImages.map((image, index) => (
-              <span className={index === slideIndex ? "is-active" : ""} key={image} />
+              <button
+                type="button"
+                className={index === slideIndex ? "is-active" : ""}
+                key={image}
+                aria-label={`Show security team photo ${index + 1}`}
+                aria-current={index === slideIndex}
+                onClick={() => setSlideIndex(index)}
+              >
+                <span />
+              </button>
             ))}
           </div>
         </section>

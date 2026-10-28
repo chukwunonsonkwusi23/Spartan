@@ -39,6 +39,7 @@ export const serviceItems = [
     slug: "secured-mobility",
     href: "/services/secured-mobility",
     image: "/images/spartan 3.jpg",
+    video: "/videos/Video Movement.mp4",
     description:
       "Protected journeys with route planning, escort vehicles, and real-time monitoring.",
     summary:
@@ -74,6 +75,7 @@ export const serviceItems = [
     slug: "mobile-car-rental",
     href: "/services/mobile-car-rental",
     image: "/images/car rental.jpg",
+    video: "/videos/New Video.mp4",
     description:
       "Mobile rental vehicles delivered on demand with security-grade drivers and route support.",
     summary:
@@ -214,6 +216,7 @@ export const serviceItems = [
     slug: "secure-mobility-event-services",
     href: "/services/secure-mobility-event-services",
     image: "/images/spartan2.jpg",
+    video: "/videos/Show Of Work.mp4",
     description:
       "Coordinated event transport, logistics, and secure movement for gatherings and operations.",
     summary:
@@ -249,6 +252,7 @@ export const serviceItems = [
     slug: "luxury-car-rental",
     href: "/services/luxury-car-rental",
     image: "/images/images (5).jpg",
+    video: "/videos/Video Spartan.mp4",
     description:
       "High-end rental vehicles for premium travel, corporate bookings, and executive transport.",
     summary:
