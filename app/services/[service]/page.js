@@ -48,7 +48,7 @@ export default function ServiceDetailPage({ params }) {
               Call now
             </a>
             <a
-              href="https://wa.me/2349064982248?text=Hello%20300%20Spartans%2C%20I%20want%20to%20request%20a%20quote%20for%20this%20service."
+              href="https://wa.me/+2349064982248?text=Hello%20300%20Spartans%2C%20I%20want%20to%20request%20a%20quote%20for%20this%20service."
               target="_blank"
               rel="noreferrer"
               className="secondary-link whatsapp-link"
